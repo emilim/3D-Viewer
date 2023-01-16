@@ -43,6 +43,7 @@
         const image = urlParams.get('image');
         const images = ['valdivonamultires', 'fornovomultires'];
         i = images.indexOf(image);
+        if (image == null) i=0;
 
         new Avansel(container)
         .multires(params, () => (s, l, x, y) => {
