@@ -19,6 +19,9 @@
 
 <body>
     <div id="pano"></div>
+    <div style="position: absolute; top: 0; right: 0; padding: 10px; background: rgba(0, 0, 0, 0.5); color: white;">
+        <button id="changeImage">Next Image</button>
+    </div>
     <script type="module">
         import { Avansel } from "avansel";
 
@@ -31,12 +34,34 @@
             { tileSize: 512, size: 2996 },
             { tileSize: 512, size: 5992 },
         ]
-        
+                
+        // change image
+        const changeImage = document.querySelector('#changeImage')
+        let i = 0;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const image = urlParams.get('image');
+        const images = ['valdivonamultires', 'fornovomultires'];
+        i = images.indexOf(image);
+
         new Avansel(container)
-            .multires(params, () => (s, l, x, y) => {
-                l = parseInt(l) + 1
-                return `output/${l}/${s}${y}_${x}.jpg`
-            }).start()
+        .multires(params, () => (s, l, x, y) => {
+            l = parseInt(l) + 1
+            return images[i]+`/${l}/${s}${y}_${x}.jpg`
+        }).start()
+
+        changeImage.addEventListener('click', () => {
+            i++;
+            if (i >= images.length) i = 0;
+            container.removeChild(container.firstChild)
+            new Avansel(container)
+                .multires(params, () => (s, l, x, y) => {
+                    l = parseInt(l) + 1;
+                    return images[i]+`/${l}/${s}${y}_${x}.jpg`
+                }).start()
+        });
+
     </script>
+
 </body>
 </html>

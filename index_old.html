@@ -1,0 +1,65 @@
+<head>
+    <!-- for optimal display on high DPI devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.js"></script>
+
+<!-- the viewer container must have a defined size -->
+<div id="viewer" style="width: 100%; height: 100%;"></div>
+
+<!-- give the user the possibility to choose between pano0 and pano1 -->
+<div style="position: absolute; top: 0; left: 0; padding: 10px; background: rgba(0, 0, 0, 0.5); color: white;">
+    <input type="radio" name="pano" value="pano0.jpg" checked> pano0
+    <input type="radio" name="pano" value="pano1.JPG"> pano1
+</div>
+
+<!-- link to the second viewer -->
+<div style="position: absolute; top: 0; right: 0; padding: 10px; background: rgba(0, 0, 0, 0.5); color: white;">
+    <a href="index2.html">Open second viewer</a>
+
+
+<script>
+    const viewer = new PhotoSphereViewer.Viewer({
+        container: document.querySelector('#viewer'),
+        panorama: 'pano0.jpg',
+        // zoom all the way in
+        minFov: 1,
+        // speed zoom scroll
+        zoomSpeed: 0.5,
+
+        pano_data: {
+            fullWidth: 18766,
+            fullHeight: 9383,
+            croppedWidth: 18766,
+            croppedHeight: 9383,
+            croppedX: 0,
+            croppedY: 0,
+            poseHeading: 0, // 0 to 360
+            posePitch: 0, // -90 to 90
+            poseRoll: 0, // -180 to 180
+        },
+        usexmpdata: false,
+    });
+
+    // change the panorama when the user chooses another one
+    document.querySelectorAll('input[name="pano"]').forEach(input => {
+        input.addEventListener('change', e => {
+            viewer.setPanorama(e.target.value);
+        });
+    });
+</script>
+
+<style>
+    /* hide scroll */
+    body {
+        overflow: hidden;
+    }
+    #viewer {
+        border-color: aqua;
+    }
+
+</style>
