@@ -19,8 +19,8 @@
 
 <body>
     <div id="pano"></div>
-    <div style="position: absolute; top: 0; right: 0; padding: 10px; background: rgba(0, 0, 0, 0.5); color: white;">
-        <button id="changeImage">Next Image</button>
+    <div style="position: absolute; top: 0; right: 0; padding: 10px; background: rgba(0, 0, 0, 0.5); color: white; width: 110px; height: 50px;">
+        <button id="changeImage" style="width: 100%; height: 100%;">Next Image</button>
     </div>
     <script type="module">
         import { Avansel } from "avansel";
@@ -41,7 +41,7 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const image = urlParams.get('image');
-        const images = ['valdivonamultires', 'fornovomultires'];
+        const images = ['valdivonamultires', 'fornovomultires', 'albaretomultires'];
         i = images.indexOf(image);
         if (image == null) i=0;
 
